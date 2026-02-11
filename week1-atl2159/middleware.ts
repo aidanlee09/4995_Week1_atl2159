@@ -32,12 +32,10 @@ export async function middleware(request: NextRequest) {
   const { data } = await supabase.auth.getUser();
   const user = data.user;
 
-  // Dev: force users through /login if not signed in (NO query params)
   if (process.env.NODE_ENV === "development" && pathname === "/" && !user) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  // Normal protection for "/"
   if (!isPublic && pathname === "/" && !user) {
     return NextResponse.redirect(new URL("/login", request.url));
   }

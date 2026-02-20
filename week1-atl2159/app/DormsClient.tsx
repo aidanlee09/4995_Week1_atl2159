@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { createClientForBrowser } from "@/lib/supabaseClient";
+import { useRouter } from "next/navigation";
 
 interface Dorm {
   id: string;
@@ -16,6 +17,7 @@ export default function DormsClient() {
   const [dorms, setDorms] = useState<Dorm[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchDorms = async () => {
@@ -42,6 +44,12 @@ export default function DormsClient() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center p-24">
       <h1 className="text-4xl font-bold mb-8">Dorms</h1>
+      <button
+        onClick={() => router.push("/rate-captions")}
+        className="mb-8 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+      >
+        Rate Captions
+      </button>
 
       {dorms.length === 0 ? (
         <p>No dorms found.</p>

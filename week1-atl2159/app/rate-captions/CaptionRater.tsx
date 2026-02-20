@@ -86,15 +86,18 @@ export default function CaptionRater() {
     setLoading(true);
     setError(null);
     try {
-      const { error } = await supabase.from("caption_votes").insert({
-        profile_id: user.id,
-        caption_id: currentCaption.id,
-        vote_value: voteType === "upvote" ? 1 : -1,
-        created_datetime_utc: currentCaption.created_datetime_utc, // Added created_datetime_utc
-      });
+      const { error } = await supabase.from("caption_votes").upsert(
+        {
+          profile_id: user.id,
+          caption_id: currentCaption.id,
+          vote_value: voteType === "upvote" ? 1 : -1,
+          created_datetime_utc: currentCaption.created_datetime_utc,
+        },
+        { onConflict: 'profile_id, caption_id' } // Specify conflict columns for upsert
+      );
 
       if (error) {
-        console.error("Supabase insert error:", error);
+        console.error("Supabase upsert error:", error);
         setError(error.message);
         return;
       }

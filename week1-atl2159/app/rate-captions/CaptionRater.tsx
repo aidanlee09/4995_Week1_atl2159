@@ -120,31 +120,33 @@ export default function CaptionRater() {
     <div className="flex min-h-screen flex-col items-center justify-center p-24">
       <button
         onClick={() => router.back()}
-        className="absolute top-4 left-4 bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
+        className="absolute top-4 left-4 bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded shadow transition-colors"
       >
         &larr; Back to Dorms
       </button>
-      <h1 className="text-4xl font-bold mb-8">Rate Captions</h1>
+      <h1 className="text-4xl font-bold mb-8 text-black text-center">Rate Captions</h1>
       {currentCaption ? (
-        <div className="border rounded-lg p-8 w-full max-w-2xl bg-black shadow flex flex-col items-center">
-          <p className="text-2xl mb-8 text-center">{currentCaption.content}</p>
-          <div className="flex space-x-4">
+        <div className="border border-sky-200 rounded-xl p-10 w-full max-w-2xl bg-white shadow-2xl flex flex-col items-center">
+          <p className="text-3xl mb-10 text-center text-slate-900 font-medium leading-relaxed tracking-tight">
+            "{currentCaption.content}"
+          </p>
+          <div className="flex space-x-6">
             <button
               onClick={() => handleVote("upvote")}
-              className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+              className="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg shadow-md transition-all active:scale-95"
             >
               Upvote
             </button>
             <button
               onClick={() => handleVote("downvote")}
-              className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+              className="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-lg shadow-md transition-all active:scale-95"
             >
               Downvote
             </button>
           </div>
         </div>
       ) : (
-        <p>No captions available for rating.</p>
+        <p className="text-slate-800">No captions available for rating.</p>
       )}
     </div>
   );
